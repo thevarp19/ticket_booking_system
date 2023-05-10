@@ -1,0 +1,14 @@
+<!-- theater_detail.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ theater.name }}</h1>
+<p>{{ theater.address }}</p>
+<h2>Seats</h2>
+<ul>
+{% for seat in seats %}
+<li><a href="{% url 'booking_confirmation' movie.id theater.id seat.id %}">Seat {{ seat.row }}{{ seat.number }}</a></li>
+{% empty %}
+<li>No seats found.</li>
+{% endfor %}
+</ul>
+{% endblock %}
