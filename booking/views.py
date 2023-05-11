@@ -1,9 +1,16 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Movie, Theater, Seat, Booking, User
-from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth import login, authenticate, logout
+from booking.models import Movie
+from .utils import average_rating
+from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect
+from io import BytesIO
+from PIL import Image
+from django.core.files.images import ImageFile
 from django.contrib import messages
+
+
+from booking.forms import MovieForm
 
 
 
@@ -57,6 +64,71 @@ def sign_out(request):
 #     return render(request, 'booking/', context)
 
 
+
+
+def movie_list(request):
+    movies = Movie.objects.all()
+    movies_with_reviews = []
+    for movie in movies:
+        reviews = movie.review_set.all()
+        if reviews:
+            movie_rating = average_rating([movie.rating for movie in reviews])
+            number_of_reviews = len(reviews)
+        else:
+            movie_rating = None
+            number_of_reviews = 0
+        movies_with_reviews.append({"movie": movie, "movie_rating": movie_rating, "number_of_reviews": number_of_reviews})
+
+    context = {
+        "movie_list": movies_with_reviews
+    }
+    return render(request, "movie_list.html", context)
+
+
+def movie_media(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    if request.method == "POST":
+        form = MovieForm(request.FILES, instance=movie)
+        img = form.cleaned_data.get("image")
+        if img:
+            image = Image.open(img)
+            image.thumbnail((300, 300))
+            image_data = BytesIO()
+            image.save(fp=image_data, format=img.image.format)
+            image_file = ImageFile(image_data)
+            movie.image.save(img.name, image_file)
+        movie.save()
+        messages.success(request, "Movie \"{}\" was successfully updated.".format(movie))
+        return redirect("movie_detail", movie.pk)
+    else:
+        form = MovieForm(instance=movie)
+
+    return render(request, "instance-form.html")
+
+# def movie_detail(request, pk):
+#     movie = get_object_or_404(Movie, pk=pk)
+#     reviews = movie.review_set.all()
+#     if reviews:
+#         context = {
+#             "book": book
+#             "reviews": reviews
+#         }
+#     else:
+#         context = {
+#             "book": book,
+#             "book_rating": None,
+#             "reviews": None
+#         }
+    # if request.user.is_authenticated:
+    #     max_viewed_books_length = 10
+    #     viewed_books = request.session.get('viewed_books', [])
+    #     viewed_book = [book.id, book.title]
+    #     if viewed_book in viewed_books:
+    #         viewed_books.pop(viewed_books.index(viewed_book))
+    #     viewed_books.insert(0, viewed_book)
+    #     viewed_books = viewed_books[:max_viewed_books_length]
+    #     request.session['viewed_books'] = viewed_books
+    # return render(request, "reviews/book_detail.html", context)
 
 
 
