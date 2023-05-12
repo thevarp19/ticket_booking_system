@@ -1,16 +1,70 @@
 <!-- movie_detail.html -->
-{% extends 'base.html' %}
-{% block content %}
-    <h1>{{ movie.title }}</h1>
-    <p>{{ movie.description }}</p>
-    <img src="{{ movie.image.url }}" alt="{{ movie.title }}">
-    <h2>Theaters</h2>
-    <ul>
-        {% for theater in theaters %}
-            <li><a href="{% url 'theater_detail' theater.id %}">{{ theater.name }}</a></li>
-        {% empty %}
-            <li>No theaters found.</li>
-        {% endfor %}
-    </ul>
 
-    {% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Detail</title>
+  <style>
+    /* Add your custom CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .movie-details {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-details h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .movie-details p {
+      margin-bottom: 5px;
+    }
+
+    .movie-details .label {
+      font-weight: bold;
+    }
+
+    .movie-details .field {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Movie Detail</h1>
+
+    <div class="movie-details">
+      <h2>{{ movie.title }}</h2>
+
+      <p><span class="label">Year of Release:</span> <span class="field">{{ movie.year_of_release }}</span></p>
+      <p><span class="label">Country of Production:</span> <span class="field">{{ movie.country_of_production }}</span></p>
+      <p><span class="label">Director:</span> <span class="field">{{ movie.director }}</span></p>
+      <p><span class="label">Cast:</span> <span class="field">{{ movie.cast }}</span></p>
+      <p><span class="label">Genre:</span> <span class="field">{{ movie.genre }}</span></p>
+      <p><span class="label">Duration:</span> <span class="field">{{ movie.duration }}</span></p>
+      <p><span class="label">Age Limit:</span> <span class="field">{{ movie.age_limit }}+</span></p>
+      <p><span class="label">Premiere Date:</span> <span class="field">{{ movie.premiere_date }}</span></p>
+    </div>
+  </div>
+</body>
+</html>
