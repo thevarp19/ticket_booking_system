@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 class Cinema(models.Model):
@@ -7,21 +8,24 @@ class Cinema(models.Model):
     location_city = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Cinema {self.id}"
+        return self.cinema_name
 
 
 class Movie(models.Model):
     cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    description = models.TextField()
-    image = models.ImageField(upload_to='images/')
-    release_date = models.DateField()
-    genre = models.CharField(max_length=120)
+    year_of_release = models.IntegerField()
+    country = models.CharField(max_length=120)
+    directors = models.CharField(max_length=100)
     stars = models.CharField(max_length=100)
-    duration = models.FloatField()
-    hall_id = models.DecimalField(max_digits=8, decimal_places=2)
-    start_time = models.TimeField()
+    genre = models.CharField(max_length=100)
+    duration = models.CharField(max_length=100)
+    age_limit = models.IntegerField()
+    release_date = models.DateField()
+    description = models.TextField()
+    hall_id = models.IntegerField()
     rating = models.IntegerField()
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return self.title
@@ -35,7 +39,7 @@ class Ticket(models.Model):
     row = models.IntegerField()
 
     def __str__(self):
-        return f"Ticket {self.id}"
+        return self.movie_name
 
 
 class User(models.Model):
@@ -44,7 +48,7 @@ class User(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=100)
     birthday_date = models.DateTimeField()
-    photo_profile = models.ImageField(upload_to='images/')
+    photo_profile = models.ImageField(null=True, blank=True, upload_to="profile_photos/")
     balance = models.DecimalField(max_digits=8, decimal_places=2)
     card_number = models.CharField(max_length=16)
 

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Movie, User
-
+from booking.models import Movie
+from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=65, widget=forms.TextInput(

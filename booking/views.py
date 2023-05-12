@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Movie, Theater, Seat, Booking, User, Concert
+from .models import Cinema, Ticket, User, Movie, Purchase
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth import login, authenticate, logout
@@ -65,19 +65,20 @@ def movie_detail(request, pk):
     }
     return render(request, 'booking/movie_detail.html', context)
 
-def theater_detail(request, theater_id):
-    theater = Theater.objects.get(id=theater_id)
-    context = {
-        'theater': theater
-    }
-    return render(request, 'booking/theater_detail.html', context)
+# def theater_detail(request, pk):
+#     theater = Theater.objects.get(id=theater_id)
+#     theater = get_object_or_404(Movie, pk=pk)
+#     context = {
+#         'theater': theater
+#     }
+#     return render(request, 'booking/theater_detail.html', context)
 
-def concert_detail(request, concert_id):
-    concert = Concert.objects.get(id=concert_id)
-    context = {
-        'concert': concert
-    }
-    return render(request, 'booking/concert_detail.html', context)
+# def concert_detail(request, concert_id):
+    # concert = Concert.objects.get(id=concert_id)
+    # context = {
+    #     'concert': concert
+    # }
+    # return render(request, 'booking/concert_detail.html', context)
 
 
 

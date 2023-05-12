@@ -1,70 +1,29 @@
-<!-- movie_detail.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Movie Detail</title>
-  <style>
-    /* Add your custom CSS styles here */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .movie-details {
-      background-color: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .movie-details h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .movie-details p {
-      margin-bottom: 5px;
-    }
-
-    .movie-details .label {
-      font-weight: bold;
-    }
-
-    .movie-details .field {
-      margin-left: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Movie Detail</h1>
-
-    <div class="movie-details">
-      <h2>{{ movie.title }}</h2>
-
-      <p><span class="label">Year of Release:</span> <span class="field">{{ movie.year_of_release }}</span></p>
-      <p><span class="label">Country of Production:</span> <span class="field">{{ movie.country_of_production }}</span></p>
-      <p><span class="label">Director:</span> <span class="field">{{ movie.director }}</span></p>
-      <p><span class="label">Cast:</span> <span class="field">{{ movie.cast }}</span></p>
-      <p><span class="label">Genre:</span> <span class="field">{{ movie.genre }}</span></p>
-      <p><span class="label">Duration:</span> <span class="field">{{ movie.duration }}</span></p>
-      <p><span class="label">Age Limit:</span> <span class="field">{{ movie.age_limit }}+</span></p>
-      <p><span class="label">Premiere Date:</span> <span class="field">{{ movie.premiere_date }}</span></p>
+{% block content %}
+    <div class="container">
+        <div class="row">
+{#            {% if movie.image %}#}
+                <div class="col-md-4 justify-content-center">
+                    <img style="margin-left: 10%;margin-top: 30%;" src="{{ movie.image.url }}" alt="">
+                    <br>
+                </div>
+{#            {% endif %}#}
+            <div class="col-md-8 mt-3">
+                <h1 class="mt-3">{{ movie.title }}</h1>
+                <h4 class="mt-3">Год выпуска: <b>{{ movie.year_of_release }}</b></h4>
+                <h4 class="mt-3">Страна производства: <b>{{ movie.country }}</b></h4>
+                <h4 class="mt-3">Режиссер: <b>{{ movie.directors }}</b></h4>
+                <h4 class="mt-3">Актеры: <b>{{ movie.stars }}</b></h4>
+                <h4 class="mt-3">Жанры: <b>{{ movie.genre }}</b></h4>
+                <h4 class="mt-3">Продолжительность: <b>{{ movie.duration }}</b></h4>
+                <h4 class="mt-3">Возрастное ограничение: <b>{{ movie.age_limit }}+</b></h4>
+                <h4 class="mt-3">Дата премьеры: <b>{{ movie.release_date }}</b></h4>
+{#                <h4 class="mt-3">Hall ID: {{ movie.hall_id }}</h4>#}
+                <h4 class="mt-3">Rating: <b>{{ movie.rating }}☆</b></h4>
+                <h5 class="mt-5"><b>{{ movie.description }}</b></h5>
+                <button class="btn btn-primary mt-3">Купить билет</button>
+            </div>
+        </div>
     </div>
-  </div>
-</body>
-</html>
+{% endblock %}

@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from booking import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'booking'
 urlpatterns = [
@@ -10,3 +12,6 @@ urlpatterns = [
     path('register/', views.sign_up, name='register'),
     path('movie_detail/<int:pk>/', views.movie_detail, name='movie_detail'),
 ]
+
+if settings.DEBUG:
+     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
