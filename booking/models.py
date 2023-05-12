@@ -1,48 +1,59 @@
 from django.db import models
 
+
+class Cinema(models.Model):
+    id = models.AutoField(primary_key=True)
+    cinema_name = models.CharField(max_length=100)
+    location_city = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Cinema {self.id}"
+
+
 class Movie(models.Model):
+    cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    year_of_release = models.IntegerField(default=1)
-    # distributor = models.CharField(max_length=100)
-    country_of_production = models.CharField(max_length=100)
-    director = models.CharField(max_length=100, default='')
-    cast = models.TextField()
-    genre = models.CharField(max_length=100)
-    duration = models.CharField(max_length=50)
-    age_limit = models.IntegerField()
-    premiere_date = models.DateField()
     description = models.TextField()
-class Theater(models.Model):
-    name = models.CharField(max_length=100)
-    venue = models.CharField(max_length=100)
-    duration = models.CharField(max_length=50)
-    artists = models.CharField(max_length=200)
-    date = models.DateField()
-    start = models.TimeField()
-    age_limit = models.IntegerField()
-    description = models.TextField()
+    image = models.ImageField(upload_to='images/')
+    release_date = models.DateField()
+    genre = models.CharField(max_length=120)
+    stars = models.CharField(max_length=100)
+    duration = models.FloatField()
+    hall_id = models.DecimalField(max_digits=8, decimal_places=2)
+    start_time = models.TimeField()
+    rating = models.IntegerField()
 
-class Concert(models.Model):
-    artist = models.CharField(max_length=100)
-    venue = models.CharField(max_length=100)
-    date = models.DateField()
-    start = models.TimeField()
-    artists = models.CharField(max_length=200)
-    age_limit = models.IntegerField()
-    description = models.TextField()
+    def __str__(self):
+        return self.title
 
-class Seat(models.Model):
-    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
-    row = models.CharField(max_length=5)
-    number = models.IntegerField()
+
+class Ticket(models.Model):
+    movie_name = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    time = models.DateTimeField()
+    seat = models.DecimalField(max_digits=8, decimal_places=2)
+    row = models.IntegerField()
+
+    def __str__(self):
+        return f"Ticket {self.id}"
+
 
 class User(models.Model):
     name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=100)
-class Booking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
-    seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    birthday_date = models.DateTimeField()
+    photo_profile = models.ImageField(upload_to='images/')
+    balance = models.DecimalField(max_digits=8, decimal_places=2)
+    card_number = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.name
+
+
+class Purchase(models.Model):
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    card_num = models.CharField(max_length=16)
+    email = models.EmailField()
+    number = models.CharField(max_length=12)
