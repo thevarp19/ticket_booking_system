@@ -19,7 +19,11 @@
   </head>
   <body>
     <header>
+<<<<<<< HEAD
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+=======
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" >
+>>>>>>> 47576b2c1c44cf0590225f53546feb0b4c6b85ab
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
     <img src="{% static 'images/logo.png' %}" width="120" class="d-inline-block align-top" alt=""></a>
@@ -29,6 +33,7 @@
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link active" href="/index">Home</a>
         </li>
         {% if user.is_authenticated %}
@@ -42,6 +47,21 @@
         {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="/movie_list/">Movie</a>
+=======
+          <a class="nav-link active" href="">Home</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="">Log out</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/login">Log in</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="">Movie</a>
+>>>>>>> 47576b2c1c44cf0590225f53546feb0b4c6b85ab
         </li>
         <li class="nav-item">
           <a class="nav-link" href="">Concert</a>
@@ -97,6 +117,17 @@
                             <nav class="hover">
                             <h1 class="hover-title">{{ movie.title }}</h1>
                                 <a class="nav-link" href="/movie_detail/{{ movie.id }}"><button class="buy-btn"><h6>buy tickets</h6></button></a>
+=======
+                    {% for movie in movies %}
+                    <div class="item">
+                        <div style="background-image:url('{{ movie.image_url }}')">
+                            <p class="date">{{ movie.date }}</p>
+                            <p class="name">{{ movie.name }}</p>
+                            <p class="location">{{ movie.location }}</p>
+                            <nav class="hover">
+                            <h1 class="hover-title">{{ movie.name }}</h1>
+                            <button class="buy-btn">buy tickets</button>
+>>>>>>> 47576b2c1c44cf0590225f53546feb0b4c6b85ab
                             </nav>
                         </div>
                     </div>
@@ -144,8 +175,13 @@
 
     </div>
   </div>
+<<<<<<< HEAD
   <footer class="bg-dark text-center text-white sticky">
   <div class="container p-4 pb-0 ">
+=======
+  <footer class="bg-dark text-center text-white">
+  <div class="container p-4 pb-0">
+>>>>>>> 47576b2c1c44cf0590225f53546feb0b4c6b85ab
     <section class="mb-4">
       <!-- Facebook -->
       <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/ticketonkz?utm_source=fb&utm_medium=referral&utm_campaign=sait_glavnaya%C2%AD_perehodi" role="button">

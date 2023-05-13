@@ -13,6 +13,7 @@ def index(request):
     image_dir = [os.path.join(settings.BASE_DIR, 'static', 'images/carousel_images')]
     for directory in image_dir:
         images.append(os.listdir(directory))
+
     context = {
         'movie': movie,
         'images': images
@@ -25,6 +26,9 @@ def movie_detail(request, pk):
         'movie': movie
     }
     return render(request, 'booking/movie_detail.html', context)
+
+    return render(request, 'base.html', context)
+
 def ticket_search(request):
     search_text = request.GET.get("search", "")
     search_history = request.session.get('search_history', [])
