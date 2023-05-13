@@ -35,3 +35,7 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ["image"]
+
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False, min_length=3)
+    search_in = forms.ChoiceField(required=False,choices=(("title", "Title"),("location_city", "Location_city")))

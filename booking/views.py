@@ -1,14 +1,48 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Cinema, Ticket, User, Movie, Purchase
 from django.shortcuts import render, redirect
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, SearchForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-
-
+import os
+from django.conf import settings
 
 def index(request):
-    return render(request, 'booking/theater_detail.html')
+    images = []
+    image_dir = [os.path.join(settings.BASE_DIR, 'static', 'images/carousel_images')]
+    for directory in image_dir:
+        images.append(os.listdir(directory))
+    context = {'images': images}
+    return render(request, 'base.html', context)
+
+
+def ticket_search(request):
+    search_text = request.GET.get("search", "")
+    search_history = request.session.get('search_history', [])
+    form = SearchForm(request.GET)
+    tickets = set()
+
+    if form.is_valid() and form.cleaned_data["search"]:
+        search = form.cleaned_data["search"]
+        search_in = form.cleaned_data.get("search_in") or "title"
+        if search_in == "title":
+            tickets = set(Movie.objects.filter(title__icontains=search))
+        else:
+            cities = Cinema.objects.filter(location_city__icontains=search)
+            for city in cities:
+                for ticket in city.ticket_set.all():
+                    tickets.add(ticket.movie)
+
+        if request.user.is_authenticated:
+            search_history.append(search)
+            request.session['search_history'] = search_history
+
+    elif search_history:
+        initial = dict(search=search_text,
+                       search_in=search_history[-1])
+        form = SearchForm(initial=initial)
+
+    return render(request, "booking/search-results.html", {"form": form, "search_text": search_text, "tickets": tickets})
 
 def sign_in(request):
     if request.method == 'GET':
