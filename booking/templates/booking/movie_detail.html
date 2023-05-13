@@ -3,12 +3,12 @@
 {% block content %}
     <div class="container">
         <div class="row">
-{#            {% if movie.image %}#}
+            {% if movie.image %}
                 <div class="col-md-4 justify-content-center">
                     <img style="margin-left: 10%;margin-top: 30%;" src="{{ movie.image.url }}" alt="">
                     <br>
                 </div>
-{#            {% endif %}#}
+            {% endif %}
             <div class="col-md-8 mt-3">
                 <h1 class="mt-3">{{ movie.title }}</h1>
                 <h4 class="mt-3">Год выпуска: <b>{{ movie.year_of_release }}</b></h4>

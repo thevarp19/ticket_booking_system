@@ -8,7 +8,7 @@ from django.contrib import messages
 
 
 def index(request):
-    return render(request, 'booking/theater_detail.html')
+    return render(request, 'base.html')
 
 def sign_in(request):
     if request.method == 'GET':
