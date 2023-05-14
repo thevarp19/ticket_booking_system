@@ -29,6 +29,7 @@ class Event(models.Model):
 
     venue = models.ForeignKey(Place, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
+    price = models.IntegerField()
     start_time = models.TimeField()
     year_of_release = models.IntegerField()
     country = models.CharField(max_length=120)
@@ -55,7 +56,6 @@ class Event(models.Model):
 
 class Ticket(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
     seat = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     row = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])

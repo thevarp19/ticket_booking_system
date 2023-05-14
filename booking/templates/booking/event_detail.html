@@ -28,9 +28,20 @@
 {% block content %}
     <style>
         body {
+            margin-top: 15%;
+            margin-bottom: 15%;
             background-image: url("/static/images/cinema5.jpg");
             background-size: cover;
         }
+        footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
     </style>
     {% if events.category == 'movie' %}
         <div class="container pb-5 rounded" style="background: white; opacity: 1;">
@@ -59,7 +70,7 @@
             </div>
         </div>
     {% elif events.category == 'show' %}
-        <div class="container pb-5 rounded">
+        <div class="container pb-5 rounded" style="background: white; opacity: 1;">
             <div class="row">
                 {% if events.image %}
                     <div class="col-md-4 justify-content-center">
@@ -80,7 +91,7 @@
             </div>
         </div>
     {% elif events.category == 'performance' %}
-        <div class="container pb-5 rounded">
+        <div class="container pb-5 rounded" style="background: white; opacity: 1;">
             <div class="row">
                 {% if events.image %}
                     <div class="col-md-4 justify-content-center">

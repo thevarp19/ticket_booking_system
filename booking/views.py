@@ -27,36 +27,37 @@ def index(request):
 
 def events_list(request, category):
     events = Event.objects.filter(category=category)
-    context = {'events': events}
+    images = []
+    image_dir = [os.path.join(settings.BASE_DIR, 'static', 'images/carousel_images')]
+    for directory in image_dir:
+        images.append(os.listdir(directory))
+    context = {'events': events,
+               'images': images
+               }
     return render(request, 'base.html', context)
 
-def ticket_search(request):
+def event_search(request):
     search_text = request.GET.get("search", "")
     search_history = request.session.get('search_history', [])
     form = SearchForm(request.GET)
-    tickets = set()
-
+    events = set()
     if form.is_valid() and form.cleaned_data["search"]:
         search = form.cleaned_data["search"]
         search_in = form.cleaned_data.get("search_in") or "title"
         if search_in == "title":
-            tickets = set(Event.objects.filter(title__icontains=search))
-        else:
-            cities = Place.objects.filter(location_city__icontains=search)
-            for city in cities:
-                for ticket in city.ticket_set.all():
-                    tickets.add(ticket.movie)
+            events = Event.objects.filter(title__iregex=search)
+
 
         if request.user.is_authenticated:
-            search_history.append(search)
+            search_history.append([search_in, search])
             request.session['search_history'] = search_history
-
     elif search_history:
         initial = dict(search=search_text,
-                       search_in=search_history[-1])
+                       search_in=search_history[-1][0])
         form = SearchForm(initial=initial)
 
-    return render(request, "booking/search-results.html", {"form": form, "search_text": search_text, "tickets": tickets})
+    return render(request, "booking/search-results.html", {"form": form, "search_text": search_text, "events": events})
+
 
 def sign_in(request):
     if request.method == 'GET':
@@ -103,16 +104,16 @@ def event_detail(request, category, pk):
     events = get_object_or_404(Event, category=category, pk=pk)
     reviews = events.review_set.all()
     if reviews:
-        book_rating = average_rating([review.rating for review in reviews])
+        event_rating = average_rating([review.rating for review in reviews])
         context = {
             "events": events,
-            "event_rating": book_rating,
+            "event_rating": event_rating,
             "reviews": reviews
         }
     else:
         context = {
             "events": events,
-            "book_rating": None,
+            "event_rating": None,
             "reviews": None
         }
     return render(request, 'booking/event_detail.html', context)
@@ -153,5 +154,5 @@ def review_edit(request, event_pk, review_pk=None):
                    "instance": review,
                    "model_type": "Review",
                    "related_instance": events,
-                   "related_model_type": 'Events'
+                   "related_model_type": events.category
                    })

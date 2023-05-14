@@ -39,15 +39,17 @@
     justify-content: center;
   }
 
-  .movies{
-    display: inline-flex;
+  .events{
+    margin: 0 40px;
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
-    width: 100%;
   }
+
 
   .item{
     border-radius: 10px;
-    margin: 40px 30px 0 0;
+    margin-top: 40px;
     width: 210px;
     height: 320px;
     background-color: white;
@@ -57,10 +59,12 @@
   .item div{
     border-radius: 10px 10px 0 0;
     height: 260px;
+    width: 210px;
     background-position: center;
     background-repeat: no-repeat;
     background-size:cover;
     padding-top: 265px;
+    color: black;
   }
 
   .item div p{
@@ -88,24 +92,21 @@
     margin-top: -319px;
     opacity: 0;
     box-shadow: 0 -100px 600px 0px black inset;
-  }
+    transition: opacity 0.5s ease;
+}
 
-  .hover:hover{
-    opacity: 1;
-    transition-duration: 500ms;
-  }
+.hover-show {
+  opacity: 1;
+}
+  .item:hover .hover {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
 
   .hover-title{
     color: white;
-    font-size: 25px;    
-  }
-
-  .item:hover{
-    border-radius: 10px;
-    margin: 40px 30px 0 0;
-    width: 210px;
-    height: 320px;
-    background-color: white;
+    font-size: 20px;
   }
 
   .buy-btn{
@@ -125,6 +126,33 @@
     text-decoration: none;
     box-shadow: -0.5px -0.5px 0.5px rgba(0,0,0,0.05);
 }
+
+.gj-datepicker{
+  color: #66a100;
+  height: 50px;
+}
+
+.btn-outline-secondary {
+    padding: 0;
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-secondary:focus{
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+#datepicker{
+  height: 50px;
+  width: 160px;
+}
+
 
 .dropdown-toggle{
   width: 200px;
@@ -163,6 +191,8 @@
   width: 100%;
   padding: 12px;
 }
+
+
 
 
  

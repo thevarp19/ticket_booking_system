@@ -14,8 +14,9 @@ urlpatterns = [
     path('events/<str:category>/<int:pk>/', views.event_detail, name='event_detail'),
     path('review_create/<int:event_pk>/', views.review_edit, name='review_create'),
     path('review_edit/<int:event_pk>/<int:review_pk>/', views.review_edit, name='review_edit'),
-    # path('ticket-search/', views.ticket_search, name='ticket_search'),
+    path('event-search/', views.event_search, name='event_search'),
 ]
+
 
 if settings.DEBUG:
      urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

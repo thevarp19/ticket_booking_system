@@ -13,13 +13,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/13ccb33514.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.14/js//gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+
     <script src="{% static 'base.js' %}"></script>
-    <title>{% block title %}Ticket Booking System{% endblock %}</title>
+    <title>{% block title %}Ticket Bookig System{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'base.css' %}">
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/index">
                 <img src="{% static 'images/logo.png' %}" width="120" class="d-inline-block align-top" alt=""></a>
@@ -41,10 +46,11 @@
                         <a class="nav-link" href="/events/performance">Theatre</a>
                     </li>
                 </ul>
-                <form class="d-flex" style="margin-left: 30%">
-                    <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-danger" type="button">Search</button>
+                <form action="{% url 'event_search' %}" class="d-flex" style="margin-left: 30%">
+                    <input class="form-control me-2" type="search" aria-label="Search" name="search" value="{{ search_text }}" minlength="3" placeholder="Search by event name">
+                    <button class="btn btn-danger" type="submit">Search</button>
                 </form>
+
                 <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -87,73 +93,77 @@
 </div>
 
     <div class="main">
-    <div id="movieList" class="container" style="background-color: #41060e">
-    <div class="row">
-        <div id="pop" class="col-7">
-            <div class="row">
-                <div class="col-12 text-white">Popular</div>
-            </div>
-            <div class="movies">
-                {% for event in events %}
-                    <div class="item" style="padding-left: 0;padding-right: 0">
-                        <div style="background-image:url('{{ event.image.url }}')">
-                            <p class="date">{{ event.release_date }}</p>
-                            <p class="name">{{ event.title }}</p>
-                            <p class="location">{{ event.country }}</p>
-                            <nav class="hover">
-                                <h1 class="hover-title">{{ event.title }}</h1>
-                                <a class="nav-link" href="/events/{{ event.category }}/{{ event.id }}">
-                                    <button class="buy-btn"><h6>buy tickets</h6></button>
-                                </a>
-                            </nav>
-                        </div>
-                    </div>
-                    {% if forloop.counter|divisibleby:3 %}
-                        </div>
-                        <div class="row">
-                    {% endif %}
-                {% endfor %}
-                </div>
-        </div>
-
-        <div class="col-5 d-flex justify-content-center justify-content-md-end">
+    <div id="movieList" class="container">
+       <nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <input id="datepicker" class="form-control mr-sm-2" type="text" placeholder="Choose a date">
+    <div id="pop" class="col-6 text-center text-white">
+      <span>Popular</span>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
             <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                <span>Choose a city</span>
+              <span>Choose a city</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Nur-Sultan</a></li>
-                <li><a class="dropdown-item" href="#">Almaty</a></li>
-                <li><a class="dropdown-item" href="#">Shymkent</a></li>
-                <li><a class="dropdown-item" href="#">Turkistan</a></li>
-                <li><a class="dropdown-item" href="#">Aktau</a></li>
-                <li><a class="dropdown-item" href="#">Aktobe</a></li>
-                <li><a class="dropdown-item" href="#">Taraz</a></li>
-                <li><a class="dropdown-item" href="#">Karaganda</a></li>
-                <li><a class="dropdown-item" href="#">Ust'-Kamenogorsk</a></li>
-                <li><a class="dropdown-item" href="#">Kostanay</a></li>
-                <li><a class="dropdown-item" href="#">Semey</a></li>
-                <li><a class="dropdown-item" href="#">Taldykorgan</a></li>
-                <li><a class="dropdown-item" href="#">Kyzylorda</a></li>
-                <li><a class="dropdown-item" href="#">Kokshetau</a></li>
-                <li><a class="dropdown-item" href="#">Uralsk</a></li>
-                <li><a class="dropdown-item" href="#">Pavlodar</a></li>
-                <li><a class="dropdown-item" href="#">Petropavl</a></li>
+              <li><a class="dropdown-item" href="#">Nur-Sultan</a></li>
+              <li><a class="dropdown-item" href="#">Almaty</a></li>
+              <li><a class="dropdown-item" href="#">Shymkent</a></li>
+              <li><a class="dropdown-item" href="#">Turkistan</a></li>
+              <li><a class="dropdown-item" href="#">Aktau</a></li>
+              <li><a class="dropdown-item" href="#">Aktobe</a></li>
+              <li><a class="dropdown-item" href="#">Taraz</a></li>
+              <li><a class="dropdown-item" href="#">Karaganda</a></li>
+              <li><a class="dropdown-item" href="#">Ust'-Kamenogorsk</a></li>
+              <li><a class="dropdown-item" href="#">Kostanay</a></li>
+              <li><a class="dropdown-item" href="#">Semey</a></li>
+              <li><a class="dropdown-item" href="#">Taldykorgan</a></li>
+              <li><a class="dropdown-item" href="#">Kyzylorda</a></li>
+              <li><a class="dropdown-item" href="#">Kokshetau</a></li>
+              <li><a class="dropdown-item" href="#">Uralsk</a></li>
+              <li><a class="dropdown-item" href="#">Pavlodar</a></li>
+              <li><a class="dropdown-item" href="#">Petropavl</a></li>
             </ul>
-        </div>
-
-        <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-sm"></div>
-            <div class="col-sm"></div>
-            <div class="col-sm"></div>
-        </div>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+</nav>
 
+
+{% if events %}
+   <div class="events">
+        {% for event in events %}
+            <div class="col-3 item" style="padding-left: 0;padding-right: 0">
+                <div style="background-image:url('{{ event.image.url }}')">
+                    <p class="date">{{ event.release_date }}</p>
+                    <p class="name">{{ event.title }}</p>
+                    <p class="location">{{ event.venue }}</p>
+                    <nav class="hover">
+                    <h1 class="hover-title">{{ event.title }}</h1>
+                    <a class="nav-link" href="/events/{{ event.category }}/{{ event.id }}">
+                        <button class="buy-btn"><h6>buy tickets</h6></button>
+                    </a>
+                    </nav>
+                </div>
+            </div>
+        {% endfor %}
+   </div>
+{% else %}
+    <p>Nothing was found for your query</p>
+{% endif %}
+</div>
+</div>
 {% endblock %}
 
-</div>
-</div>
 <footer class="bg-dark text-center text-white sticky">
     <div class="container p-4 pb-0 ">
         <section class="mb-4">
@@ -200,6 +210,5 @@
     </div>
     <!-- Copyright -->
 </footer>
-
 </body>
 </html>

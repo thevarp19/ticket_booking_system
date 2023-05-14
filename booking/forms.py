@@ -3,6 +3,7 @@ from django import forms
 from booking.models import Event, Review
 from django.contrib.auth.models import User
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=65, widget=forms.TextInput(
         attrs={"placeholder": "Username", "style": "border-radius: 15px;"}))
@@ -30,6 +31,7 @@ class RegisterForm(UserCreationForm):
         self.fields['password2'].widget = forms.PasswordInput(
             attrs={'class': 'form-control', "placeholder": "Confirm password", "style": "border-radius: 15px;"})
 
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
@@ -37,11 +39,14 @@ class ReviewForm(forms.ModelForm):
 
     rating = forms.IntegerField(min_value=0, max_value=10)
 
+
 class MovieForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ["image"]
 
+
 class SearchForm(forms.Form):
     search = forms.CharField(required=False, min_length=3)
-    search_in = forms.ChoiceField(required=False,choices=(("title", "Title"),("location_city", "Location_city")))
+    search_in = forms.ChoiceField(required=False, choices=(("title", "Title"),), initial="title")
+

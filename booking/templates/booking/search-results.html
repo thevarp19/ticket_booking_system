@@ -1,33 +1,37 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% block title %}
-    {% if form.is_valid and search_text %}
-        Search Results for "{{ search_text }}"
-    {% else %}
-        Book Search
-    {% endif %}
+
+
+  {% if form.is_valid and search_text %}
+    Результаты поиска для "{{ search_text }}"
+  {% else %}
+    Поиск событий
+  {% endif %}
 {% endblock %}
+
 {% block content %}
-<h2>Search for </h2>
-<form>
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-    {% if form.is_valid and search_text %}
-    <h3>Search Results for <em>{{ search_text }}</em></h3>
-    <ul class="list-group">
-    {% for ticket in tickets %}
-<!--    <li class="list-group-item">-->
-<!--        <span class="text-info">Title: </span> <a href="{% url 'book_detail' book.pk %}">{{ book }}</a>-->
-<!--        <br/>-->
-<!--        <span class="text-info">Contributors: </span>-->
-<!--        {% for contributor in book.contributors.all %}-->
-<!--            {{ contributor.first_names }} {{ contributor.last_names }}{% if not forloop.last %}, {% endif %}-->
-<!--        {% endfor %}-->
-<!--    </li>-->
-    {% empty %}
-        <li class="list-group-item">No results found.</li>
-    {% endfor %}
-</ul>
+    <BR>
+    <BR>
+    <bR>
+  <h2>Поиск событий</h2>
+  <form action="{% url 'event_search' %}" class="d-flex" style="margin-left: 30%">
+    <input class="form-control me-2" type="search" aria-label="Search" name="search" value="{{ search_text }}" minlength="3" placeholder="Поиск по названию события">
+    <button class="btn btn-danger" type="submit">Поиск</button>
+  </form>
+
+  {% if form.is_valid and search_text %}
+    <h3>Результаты поиска для <em>{{ search_text }}</em></h3>
+    {% if events %}
+      <ul class="list-group">
+        {% for event in events %}
+          <li class="list-group-item">
+           <a href="{% url 'event_detail' category=event.category pk=event.pk %}">{{ event.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Ничего не найдено.</p>
     {% endif %}
+  {% endif %}
 {% endblock %}

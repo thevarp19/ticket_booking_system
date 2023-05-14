@@ -1,12 +1,15 @@
 $(document).ready(function(){
-     $('item').hover(function() {
-         $(".hover").animate({
-             opacity: '1',
-           }, "slow");
-       });
-       $('item').mouseout(function() {
-         $(".hover").animate({
-             opacity: '0',
-           });
-       });
-   });
+
+  $('.item').on('mouseenter', function() {
+    $(this).find('.hover').addClass('hover-show');
+  });
+  $('.item').on('mouseleave', function() {
+    $(this).find('.hover').removeClass('hover-show');
+  });
+  $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap5',
+            minDate: "today"
+        });
+});
+
+
