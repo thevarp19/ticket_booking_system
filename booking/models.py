@@ -25,7 +25,7 @@ class Movie(models.Model):
     description = models.TextField()
     hall_id = models.IntegerField()
     rating = models.IntegerField()
-    image = models.ImageField(null=True, blank=True, upload_to="images/")
+    image = models.ImageField(upload_to="images/")
 
     def __str__(self):
         return self.title

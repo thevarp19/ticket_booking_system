@@ -8,11 +8,14 @@ import os
 from django.conf import settings
 
 def index(request):
+    movie = Movie.objects.all()
     images = []
     image_dir = [os.path.join(settings.BASE_DIR, 'static', 'images/carousel_images')]
     for directory in image_dir:
         images.append(os.listdir(directory))
-    context = {'images': images}
+    context = {'images': images,
+               'movies': movie
+               }
     return render(request, 'base.html', context)
 
 
