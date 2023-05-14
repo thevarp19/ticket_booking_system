@@ -1,14 +1,30 @@
 {% extends 'base.html' %}
 
+<style>
+    img {
+        width: 300px;
+    }
+
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
+</style>
+
 {% block content %}
     <div class="container">
         <div class="row">
-{#            {% if movie.image %}#}
+            {% if movie.image %}
                 <div class="col-md-4 justify-content-center">
-                    <img style="margin-left: 10%;margin-top: 30%;" src="{{ movie.image.url }}" alt="">
+                    <img style="margin-left: 10%;margin-top: 30%;width: 300px" src="{{ movie.image.url }}" alt="">
                     <br>
                 </div>
-{#            {% endif %}#}
+            {% endif %}
             <div class="col-md-8 mt-3">
                 <h1 class="mt-3">{{ movie.title }}</h1>
                 <h4 class="mt-3">Год выпуска: <b>{{ movie.year_of_release }}</b></h4>
@@ -19,7 +35,7 @@
                 <h4 class="mt-3">Продолжительность: <b>{{ movie.duration }}</b></h4>
                 <h4 class="mt-3">Возрастное ограничение: <b>{{ movie.age_limit }}+</b></h4>
                 <h4 class="mt-3">Дата премьеры: <b>{{ movie.release_date }}</b></h4>
-{#                <h4 class="mt-3">Hall ID: {{ movie.hall_id }}</h4>#}
+                {#                <h4 class="mt-3">Hall ID: {{ movie.hall_id }}</h4>#}
                 <h4 class="mt-3">Rating: <b>{{ movie.rating }}☆</b></h4>
                 <h5 class="mt-5"><b>{{ movie.description }}</b></h5>
                 <button class="btn btn-primary mt-3">Купить билет</button>

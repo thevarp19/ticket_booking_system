@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 
 app_name = 'booking'
 urlpatterns = [
-    path('', views.index, name='movie_list'),
+    path('', views.index, name='index'),
+    path('index/', views.index, name='index'),
     path('login/', views.sign_in, name='login'),
     path('logout/', views.sign_out, name='logout'),
     path('register/', views.sign_up, name='register'),

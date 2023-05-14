@@ -16,8 +16,7 @@
         }
     </style>
     {% load widget_tweaks %}
-    <div class="d-flex justify-content-center" style="margin-top: 10%">
-
+    <div class="d-flex justify-content-center" style="margin-top: 10%;margin-bottom: 10%">
         <form method="post" novalidate class="w-25">
             {% csrf_token %}
             {% for hidden_field in form.hidden_fields %}
@@ -32,7 +31,7 @@
                     {% endif %}
                 </div>
             {% endfor %}
-             <p>Don’t have an account?  <a href="{% url 'booking:register' %}">Register</a></p>
+            <p>Don’t have an account? <a href="{% url 'booking:register' %}">Register</a></p>
             <button type="submit" class="btn btn-warning btn-block rounded-pill">Submit</button>
 
         </form>
