@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 from django.db import models
@@ -60,11 +61,11 @@ class Ticket(models.Model):
     row = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     def __str__(self):
-        return self.event.name
+        return self.event.title
 
 
 class User(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.ForeignKey(auth.get_user_model(), on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     email = models.EmailField()
@@ -75,7 +76,7 @@ class User(models.Model):
     card_number = models.CharField(max_length=16)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 
 class Purchase(models.Model):
@@ -83,3 +84,17 @@ class Purchase(models.Model):
     card_num = models.CharField(max_length=16)
     email = models.EmailField()
     number = models.CharField(max_length=12)
+
+class Review(models.Model):
+    content = models.TextField(help_text="The Review text.")
+    rating = models.IntegerField(help_text="The the reviewer has given.")
+    date_created = models.DateTimeField(auto_now_add=True,
+                                        help_text="The date and time the review was created.")
+    date_edited = models.DateTimeField(null=True,
+                                       help_text="The date and time the review was last edited.")
+    creator = models.ForeignKey(auth.get_user_model(), on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE,
+                             help_text="The Book that this review is for.")
+
+    def __str__(self):
+        return "{} - {}".format(self.creator.username, self.event.title)

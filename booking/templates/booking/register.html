@@ -6,8 +6,14 @@
         body.style.backgroundImage = 'url(/static/images/login-bg.png)';
     </script>
     <style>
-        label {
-            margin-bottom: 0;
+        footer {
+            position: sticky;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
         }
 
         body {
@@ -18,7 +24,7 @@
             padding-top: 0 !important;
         }
     </style>
-    <div class="d-flex justify-content-center" style="margin-top: 5%;margin-bottom: 10%">
+    <div class="d-flex justify-content-center" style="margin-top: 5%;margin-bottom: 20%">
         <form method="POST" novalidate class="w-25">
             {% csrf_token %}
             <h2>Sign Up</h2>

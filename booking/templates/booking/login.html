@@ -7,6 +7,16 @@
         body.style.backgroundImage = 'url(/static/images/login-bg.png)';
     </script>
     <style>
+        footer {
+            {#position: fixed;#}
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
+
         body {
             background-size: cover;
             background-repeat: no-repeat;
@@ -33,7 +43,6 @@
             {% endfor %}
             <p>Don’t have an account? <a href="{% url 'booking:register' %}">Register</a></p>
             <button type="submit" class="btn btn-warning btn-block rounded-pill">Submit</button>
-
         </form>
     </div>
 {% endblock content %}

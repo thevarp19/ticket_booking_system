@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from booking.models import Event
+from booking.models import Event, Review
 from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
@@ -30,6 +30,12 @@ class RegisterForm(UserCreationForm):
         self.fields['password2'].widget = forms.PasswordInput(
             attrs={'class': 'form-control', "placeholder": "Confirm password", "style": "border-radius: 15px;"})
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        exclude = ["date_edited", "event"]
+
+    rating = forms.IntegerField(min_value=0, max_value=10)
 
 class MovieForm(forms.ModelForm):
     class Meta:
