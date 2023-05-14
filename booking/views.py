@@ -72,7 +72,7 @@ def sign_in(request):
             if user:
                 login(request, user)
                 messages.success(request, f'Hi {username.title()}, welcome back!')
-                return redirect('booking:index')
+                return redirect('index')
 
         messages.error(request, f'Invalid username or password')
         return render(request, 'booking/login.html', {'form': form})
@@ -80,7 +80,7 @@ def sign_in(request):
 def sign_out(request):
     logout(request)
     messages.success(request,f'You have been logged out.')
-    return redirect('booking:index')
+    return redirect('index')
 
 def sign_up(request):
     if request.method == 'GET':
@@ -95,7 +95,7 @@ def sign_up(request):
             user.save()
             messages.success(request, 'You have singed up successfully.')
             login(request, user)
-            return redirect('booking:index')
+            return redirect('index')
         else:
             return render(request, 'booking/register.html', {'form': form})
 
@@ -135,6 +135,7 @@ def review_edit(request, event_pk, review_pk=None):
         if form.is_valid():
             updated_review = form.save(False)
             updated_review.event = events
+            updated_review.creator = request.user
 
             if review is None:
                 messages.success(request, "Review for \"{}\" created.".format(events))
@@ -143,7 +144,7 @@ def review_edit(request, event_pk, review_pk=None):
                 messages.success(request, "Review for \"{}\" updated.".format(events))
 
             updated_review.save()
-            return redirect("booking:event_detail",events.category, events.pk)
+            return redirect("event_detail",events.category, events.pk)
     else:
         form = ReviewForm(instance=review)
 
@@ -152,5 +153,5 @@ def review_edit(request, event_pk, review_pk=None):
                    "instance": review,
                    "model_type": "Review",
                    "related_instance": events,
-                   "related_model_type": events.category
+                   "related_model_type": 'Events'
                    })

@@ -33,7 +33,7 @@ class RegisterForm(UserCreationForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        exclude = ["date_edited", "event"]
+        exclude = ["date_edited", "event", "creator"]
 
     rating = forms.IntegerField(min_value=0, max_value=10)
 

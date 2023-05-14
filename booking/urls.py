@@ -12,9 +12,9 @@ urlpatterns = [
     path('register/', views.sign_up, name='register'),
     path('events/<str:category>/', views.events_list, name='event_list'),
     path('events/<str:category>/<int:pk>/', views.event_detail, name='event_detail'),
-    path('events/<str:category>/<int:pk>/reviews/new/', views.review_edit, name='review_create'),
-    path('events/<str:category>/<int:pk>/reviews/<int:event_pk>/<int:review_pk>/', views.review_edit, name='review_edit'),
-    path('ticket-search/', views.ticket_search, name='ticket_search'),
+    path('review_create/<int:event_pk>/', views.review_edit, name='review_create'),
+    path('review_edit/<int:event_pk>/<int:review_pk>/', views.review_edit, name='review_edit'),
+    # path('ticket-search/', views.ticket_search, name='ticket_search'),
 ]
 
 if settings.DEBUG:
