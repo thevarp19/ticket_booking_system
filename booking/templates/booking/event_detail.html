@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+<style>
+    img {
+        width: 300px;
+    }
+
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
+</style>
+
+{% block content %}
+    {% if events.category == 'movie' %}
+    <div class="container">
+        <div class="row">
+            {% if events.image %}
+                <div class="col-md-4 justify-content-center">
+                    <img style="margin-left: 10%;margin-top: 30%;width: 300px" src="{{ events.image.url }}" alt="">
+                    <br>
+                </div>
+            {% endif %}
+            <div class="col-md-8 mt-3">
+                <h1 class="mt-3">{{ events.title }}</h1>
+                <h4 class="mt-3">Место проведения: <b>{{ events.venue }}</b></h4>
+                <h4 class="mt-3">Год выпуска: <b>{{ events.year_of_release }}</b></h4>
+                <h4 class="mt-3">Страна производства: <b>{{ events.country }}</b></h4>
+                <h4 class="mt-3">Режиссер: <b>{{ events.directors }}</b></h4>
+                <h4 class="mt-3">Актеры: <b>{{ events.stars }}</b></h4>
+                <h4 class="mt-3">Жанры: <b>{{ events.genre }}</b></h4>
+                <h4 class="mt-3">Продолжительность: <b>{{ events.duration }}</b></h4>
+                <h4 class="mt-3">Возрастное ограничение: <b>{{ events.age_limit }}+</b></h4>
+                <h4 class="mt-3">Дата премьеры: <b>{{ events.release_date }}</b></h4>
+                <h4 class="mt-3">Rating: <b>{{ events.rating }}☆</b></h4>
+                <h5 class="mt-5"><b>{{ events.description }}</b></h5>
+                <button class="btn btn-primary mt-3">Купить билет</button>
+            </div>
+        </div>
+    </div>
+    {% elif events.category == 'show' %}
+    <div class="container">
+        <div class="row">
+            {% if events.image %}
+                <div class="col-md-4 justify-content-center">
+                    <img style="margin-left: 10%;margin-top: 30%;width: 300px" src="{{ events.image.url }}" alt="">
+                    <br>
+                </div>
+            {% endif %}
+            <div class="col-md-8 mt-3">
+                <h1 class="mt-3">{{ events.title }}</h1>
+                <h4 class="mt-3">Место проведения: <b>{{ events.venue }}</b></h4>
+                <h4 class="mt-3">Время: <b>{{ events.start_time }}</b></h4>
+                <h4 class="mt-3">Артисты: <b>{{ events.stars }}</b></h4>
+                <h4 class="mt-3">Возрастное ограничение: <b>{{ events.age_limit }}+</b></h4>
+                <h4 class="mt-3">Дата премьеры: <b>{{ events.release_date }}</b></h4>
+                <h5 class="mt-5"><b>{{ events.description }}</b></h5>
+                <button class="btn btn-primary mt-3">Купить билет</button>
+            </div>
+        </div>
+    </div>
+    {% elif events.category == 'performance' %}
+    <div class="container">
+        <div class="row">
+            {% if events.image %}
+                <div class="col-md-4 justify-content-center">
+                    <img style="margin-left: 10%;margin-top: 30%;width: 300px" src="{{ events.image.url }}" alt="">
+                    <br>
+                </div>
+            {% endif %}
+            <div class="col-md-8 mt-3">
+                <h1 class="mt-3">{{ events.title }}</h1>
+                <h4 class="mt-3">Место проведения: <b>{{ events.venue }}</b></h4>
+                <h4 class="mt-3">Время: <b>{{ events.start_time }}</b></h4>
+                <h4 class="mt-3">Артисты: <b>{{ events.stars }}</b></h4>
+                <h4 class="mt-3">Возрастное ограничение: <b>{{ events.age_limit }}+</b></h4>
+                <h4 class="mt-3">Дата премьеры: <b>{{ events.release_date }}</b></h4>
+                <h5 class="mt-5"><b>{{ events.description }}</b></h5>
+                <button class="btn btn-primary mt-3">Купить билет</button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,168 @@
+  @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-expand-sm{
+    height: 80px;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+}
+
+.nav-link:hover{
+    opacity: 1;
+    text-shadow: 0 0 15px #bde0b8;
+    color: white;
+}
+
+  .main{
+    background-color:#111111;
+  }
+
+  .row{
+  margin:  0 4%;
+  }
+
+  #movieList{
+    width: 65%;
+    background-color: #41060e;
+    padding: 80px 0;
+  }
+
+  #pop{
+    display: flex;
+    font-family: 'Merienda', cursive;
+    font-size: 45px;
+    justify-content: center;
+  }
+
+  .movies{
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .item{
+    border-radius: 10px;
+    margin: 40px 30px 0 0;
+    width: 210px;
+    height: 320px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .item div{
+    border-radius: 10px 10px 0 0;
+    height: 260px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-top: 265px;
+  }
+
+  .item div p{
+    margin:0;
+    font-size: .75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    font-family: "Open Sans",sans-serif;
+    padding-left: 10px;
+  }
+
+  .location{
+    color: #ff7103;
+  }
+
+  .hover{
+    display: flex;
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    height: 265px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-top: -319px;
+    opacity: 0;
+    box-shadow: 0 -100px 600px 0px black inset;
+  }
+
+  .hover:hover{
+    opacity: 1;
+    transition-duration: 500ms;
+  }
+
+  .hover-title{
+    color: white;
+    font-size: 25px;    
+  }
+
+  .item:hover{
+    border-radius: 10px;
+    margin: 40px 30px 0 0;
+    width: 210px;
+    height: 320px;
+    background-color: white;
+  }
+
+  .buy-btn{
+    width: 150px;
+    text-transform: uppercase;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    font-family: "Open Sans",sans-serif;
+    background-color: #80c900;
+    border-color: #66a100;
+    border-radius: 8px;
+    transition: background-color 300ms ease-out;
+    color: #fff;
+    font-size: 1em;
+    padding: 0.5em;
+    text-decoration: none;
+    box-shadow: -0.5px -0.5px 0.5px rgba(0,0,0,0.05);
+}
+
+.dropdown-toggle{
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border: 2px solid #dc3545;
+  font-weight: 700;
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dropdown-toggle:focus{
+  box-shadow: none;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu{
+  width: 200px;
+  border: 2px solid #F44336;
+  transform: translate3d(0px, 50px, 0px);
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+  color: #ffffff;
+  background-color: #dc3545;
+  padding: 12px;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 12px;
+}
+
+
+ 

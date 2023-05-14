@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script>
+        var body = document.body;
+        body.style.backgroundImage = 'url(/static/images/login-bg.png)';
+    </script>
+    <style>
+        label {
+            margin-bottom: 0;
+        }
+
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 100vh;
+            padding-top: 0 !important;
+        }
+    </style>
+    <div class="d-flex justify-content-center" style="margin-top: 5%;margin-bottom: 10%">
+        <form method="POST" novalidate class="w-25">
+            {% csrf_token %}
+            <h2>Sign Up</h2>
+
+            {% for field in form %}
+                <p>
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                <p> {{ field.label_tag }}</p>
+                {{ field }}
+                </p>
+            {% endfor %}
+            <input type="submit" class="btn btn-warning btn-block rounded-pill" value="Register"/>
+
+            <p class="mt-2">Already has an account? <a href="{% url 'booking:login' %}">Log In</a></p>
+        </form>
+    </div>
+{% endblock content %}

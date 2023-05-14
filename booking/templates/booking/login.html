@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <script>
+        var body = document.body;
+        body.style.backgroundImage = 'url(/static/images/login-bg.png)';
+    </script>
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 100vh;
+            padding-top: 0 !important;
+        }
+    </style>
+    {% load widget_tweaks %}
+    <div class="d-flex justify-content-center" style="margin-top: 10%;margin-bottom: 10%">
+        <form method="post" novalidate class="w-25">
+            {% csrf_token %}
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <p>Don’t have an account? <a href="{% url 'booking:register' %}">Register</a></p>
+            <button type="submit" class="btn btn-warning btn-block rounded-pill">Submit</button>
+
+        </form>
+    </div>
+{% endblock content %}
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="{{ movie.image.url }}" class="img-fluid" alt="{{ movie.title }}">
+    </div>
+    <div class="col-md-8">
+      <h1>{{ movie.title }}</h1>
+      <h4>Release Year: {{ movie.year_of_release }}</h4>
+      <h4>Country: {{ movie.country }}</h4>
+      <h4>Directors: {{ movie.directors }}</h4>
+      <h4>Stars: {{ movie.stars }}</h4>
+      <h4>Genre: {{ movie.genre }}</h4>
+      <h4>Duration: {{ movie.duration }}</h4>
+      <h4>Age Limit: {{ movie.age_limit }}</h4>
+      <h4>Release Date: {{ movie.release_date }}</h4>
+      <h4>Hall ID: {{ movie.hall_id }}</h4>
+      <h4>Rating: {{ movie.rating }}</h4>
+      <p>{{ movie.description }}</p>
+      <button class="btn btn-primary">Book Now</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

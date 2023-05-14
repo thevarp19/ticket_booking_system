@@ -1,0 +1,38 @@
+<!-- theater_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Theater Detail</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Add your custom CSS styles if needed -->
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Theater Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ theater.name }}</h2>
+                <p class="card-text"><strong>Venue:</strong> {{ theater.venue }}</p>
+                <p class="card-text"><strong>Duration:</strong> {{ theater.duration }}</p>
+                <p class="card-text"><strong>Artists:</strong> {{ theater.artists }}</p>
+                <p class="card-text"><strong>Date:</strong> {{ theater.date }}</p>
+                <p class="card-text"><strong>Start Time:</strong> {{ theater.start }}</p>
+                <p class="card-text"><strong>Age Limit:</strong> {{ theater.age_limit }}</p>
+                <p class="card-text"><strong>Description:</strong> {{ theater.description }}</p>
+                <!-- Add your ticket booking form here -->
+                <!-- You can use Django forms or plain HTML forms -->
+            </div>
+        </div>
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Add your custom JavaScript code if needed -->
+    <script>
+        // Add your custom JavaScript code here
+    </script>
+</body>
+</html>
