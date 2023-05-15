@@ -28,20 +28,19 @@
 {% block content %}
     <style>
         body {
-            margin-top: 15%;
+            margin-top: 10%;
             margin-bottom: 15%;
             background-image: url("/static/images/cinema5.jpg");
             background-size: cover;
         }
+
         footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: red;
-        color: white;
-        text-align: center;
-    }
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1030;
+        }
     </style>
     {% if events.category == 'movie' %}
         <div class="container pb-5 rounded" style="background: white; opacity: 1;">
@@ -65,7 +64,8 @@
                     <h5 class="mt-3">Дата премьеры: <b>{{ events.release_date }}</b></h5>
                     <h5 class="mt-3">Rating: <b>{{ events.rating }}☆</b></h5>
                     <h6 class="mt-5"><b>{{ events.description }}</b></h6>
-                    <button class="btn btn-primary mt-3">Купить билет</button>
+                    <a class="btn btn-primary btn-md active mt-3" role="button" aria-pressed="true"
+                       href="/ticket/{{ events.id }}/">Купить билет</a></li>
                 </div>
             </div>
         </div>
@@ -86,7 +86,8 @@
                     <h5 class="mt-3">Возрастное ограничение: <b>{{ events.age_limit }}+</b></h5>
                     <h5 class="mt-3">Дата премьеры: <b>{{ events.release_date }}</b></h5>
                     <h6 class="mt-5"><b>{{ events.description }}</b></h6>
-                    <button class="btn btn-primary mt-3">Купить билет</button>
+                    <a class="btn btn-primary btn-md active mt-3" role="button" aria-pressed="true"
+                       href="/ticket/{{ events.id }}/">Купить билет</a></li>
                 </div>
             </div>
         </div>
@@ -115,12 +116,13 @@
     <br>
     <br>
     <br>
-    <div class="container text-white rounded" >
-     <span class="text-info">Общая оценка: </span><span class="badge badge-primary badge-pill">{{ event_rating }}</span>
+    <div class="container text-white rounded">
+        <span class="text-info">Общая оценка: </span><span
+            class="badge badge-primary badge-pill">{{ event_rating }}</span>
         <h2 class="section-title">Комментарий: </h2>
-    {% if user.is_authenticated %}
-        <a href="{% url 'review_create' events.pk%}" class="btn btn-primary mb-3">Добавить комментарий</a>
-    {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'review_create' events.pk %}" class="btn btn-primary mb-3">Добавить комментарий</a>
+        {% endif %}
         {% for review in reviews %}
             <div class="card mb-3 text-dark">
                 <div class="card-header">
@@ -130,9 +132,9 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{ review.date_created|date:"d F Y" }}</h6>
                     <p class="card-text">{{ review.content }}</p>
                     <p class="card-text">Оценка: {{ review.rating }}</p>
-                     {% if user.id == review.creator.id %}
-                              <a href="{% url 'review_edit' events.pk review.pk %}">Изменить комментарий</a>
-                        {% endif %}
+                    {% if user.id == review.creator.id %}
+                        <a href="{% url 'review_edit' events.pk review.pk %}">Изменить комментарий</a>
+                    {% endif %}
                 </div>
             </div>
         {% empty %}

@@ -1,0 +1,81 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'cinema_seats.css' %}">
+
+    <body>
+    <div class="movie-container">
+        <label>Онлайн покупка на фильм: {{ movie.title }}</label>
+
+    </div>
+
+    <ul class="showcase">
+        <li>
+            <div class="seat"></div>
+            <small>N/A</small>
+        </li>
+        <li>
+            <div class="seat selected"></div>
+            <small>Selected</small>
+        </li>
+        <li>
+            <div class="seat occupied"></div>
+            <small>Occupied</small>
+        </li>
+    </ul>
+
+    <div class="container">
+        <div class="screen"></div>
+        <form id="seat-selection-form">
+            {% csrf_token %}
+            <input type="hidden" name="selected-seats" id="selected-seats-input" value="">
+            {% for row in rows %}
+                <div class="row">
+                    {% for seat in row %}
+                        <div class="seat{% if seat.occupied %} occupied{% endif %}"
+                             data-seat-row="{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}"></div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+
+    <p class="text">
+        You have selected <span id="count">0</span> seats for a price of $<span
+            id="total"
+    >0</span
+    >
+    </p>
+    <form action="/ticket/{{ movie.id }}/" method="post">
+        {% csrf_token %}
+        <input type="hidden" id="tempInput" name="selected_seats"/>
+        <a class="button" role="button" aria-pressed="true" href="/validate/">Купить билет</a></li>
+    </form>
+    <script>
+        const container = document.querySelector(".container");
+        const selectedSeatsInput = document.getElementById("selected-seats-input");
+        let selectedSeats = [];
+        container.addEventListener("click", e => {
+            if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+                e.target.classList.toggle("selected");
+
+                const seatRow = e.target.getAttribute("data-seat-row");
+
+                if (selectedSeats.includes(seatRow)) {
+                    selectedSeats = selectedSeats.filter(seat => seat !== seatRow);
+                } else {
+                    selectedSeats.push(seatRow);
+
+                }
+                document.getElementById("tempInput").value = selectedSeats.join(',');
+                    console.log(document.getElementById("tempInput").value)
+
+            }
+        });
+
+    </script>
+</body>
+</html>

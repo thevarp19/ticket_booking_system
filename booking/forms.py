@@ -2,6 +2,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from booking.models import Event, Review
 from django.contrib.auth.models import User
+from django.forms import HiddenInput
+import random
 
 
 class LoginForm(forms.Form):
@@ -50,3 +52,18 @@ class SearchForm(forms.Form):
     search = forms.CharField(required=False, min_length=3)
     search_in = forms.ChoiceField(required=False, choices=(("title", "Title"),), initial="title")
 
+
+class ValidatePurchase(forms.Form):
+    email = forms.EmailField(required=True)
+    card_num = forms.CharField(required=False, max_length=16)
+
+
+class ConfirmPurchase(forms.Form):
+    password = forms.CharField(widget=HiddenInput)
+    card_num = forms.CharField(widget=HiddenInput)
+    inp_pass = forms.CharField(required=False, max_length=10)
+    val = forms.BooleanField(widget=HiddenInput)
+
+
+class RequestValid(forms.Form):
+    is_valid = forms.BooleanField(widget=HiddenInput)

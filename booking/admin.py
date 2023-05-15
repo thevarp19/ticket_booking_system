@@ -1,5 +1,5 @@
 from django.contrib import admin
-from booking.models import (Place, Event, Ticket, User, Purchase, Review)
+from booking.models import (Place, Event, Ticket, Profile, Purchase, Review)
 
 
 class PlaceAdmin(admin.ModelAdmin):
@@ -9,6 +9,6 @@ class PlaceAdmin(admin.ModelAdmin):
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Event)
 admin.site.register(Ticket)
-admin.site.register(User)
+admin.site.register(Profile)
 admin.site.register(Purchase)
 admin.site.register(Review)
