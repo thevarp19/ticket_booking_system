@@ -12,7 +12,7 @@ from django.urls import reverse
 from . import models
 from .models import Place, Event, Ticket, Profile, Purchase, Review
 from django.shortcuts import render, redirect
-from .forms import LoginForm, RegisterForm, SearchForm, ReviewForm, ConfirmPurchase, ValidatePurchase
+from .forms import LoginForm, RegisterForm, SearchForm, ReviewForm, ConfirmPurchase, ValidatePurchase, DatepickerForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .utils import average_rating
@@ -174,6 +174,23 @@ def review_edit(request, event_pk, review_pk=None):
                    "related_model_type": events.category
                    })
 
+
+def handle_datepicker(request):
+    if request.method == 'POST':
+        form = DatepickerForm(request.POST)
+        if form.is_valid():
+            selected_date = form.cleaned_data['datepicker']
+            events = Event.objects.filter(date=selected_date)
+            return render(request, 'base.html', {'selected_date': selected_date, 'events': events})
+    else:
+        form = DatepickerForm()
+    return render(request, 'base.html', {'form': form})
+
+def events_by_city(request, city):
+    places = Place.objects.filter(city__iexact=city)
+    events = Event.objects.filter(venue__in=places)
+    context = {'events': events, 'city_name': city}
+    return render(request, 'base.html', context)
 
 def profile_page(request):
     if request.user:

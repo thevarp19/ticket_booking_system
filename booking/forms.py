@@ -67,3 +67,16 @@ class ConfirmPurchase(forms.Form):
 
 class RequestValid(forms.Form):
     is_valid = forms.BooleanField(widget=HiddenInput)
+
+class DatepickerForm(forms.Form):
+    datepicker = forms.DateField(
+        input_formats=['%Y-%m-%d'],
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control mr-sm-2',
+                'placeholder': 'Choose a date',
+                'id': 'datepicker',
+            }
+        )
+    )
+

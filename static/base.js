@@ -8,8 +8,10 @@ $(document).ready(function(){
   });
   $('#datepicker').datepicker({
             uiLibrary: 'bootstrap5',
-            minDate: "today"
-        });
+            minDate: '0',
+            maxDate: '+15D',
+            format: "yyyy-mm-dd"
+  })
 });
 
 
